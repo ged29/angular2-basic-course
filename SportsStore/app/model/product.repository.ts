@@ -26,12 +26,11 @@ export class ProductRepository {
     }
 
     saveProduct(product: Product) {
-        var isNewProduct = product.id === null || product.id === 0;
+        var isNewProduct = product.id === undefined;
 
         if (isNewProduct) {
             this.dataSource.saveProduct(product).subscribe(p => this.products.push(p));
-        }
-        else {
+        } else {
             this.dataSource.updateProduct(product).subscribe(p => {
                 this.products.splice(this.getProductIndex(p), 1, p);
             });

@@ -82,7 +82,7 @@ export class RestDataSource {
             body
         });
 
-        if (isAuthRequired && this.auth_token !== null) {
+        if (isAuthRequired && this.auth_token !== undefined) {
             // set the authorization header for this command
             reqCommand.headers.set("authorization", `Bearer<${this.auth_token}>`);
         }

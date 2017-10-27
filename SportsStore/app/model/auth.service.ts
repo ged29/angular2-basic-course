@@ -12,10 +12,10 @@ export class AuthService {
     }
 
     get isAuthenticated(): boolean {
-        return this.dataSource.auth_token !== null;
+        return this.dataSource.auth_token !== undefined;
     }
 
     clear() {
-        this.dataSource.auth_token = null;
+        this.dataSource.auth_token = undefined;
     }
 }

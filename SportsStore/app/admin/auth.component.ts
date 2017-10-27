@@ -14,8 +14,11 @@ export class AuthComponent {
 
     constructor(
         private router: Router,
-        private authService: AuthService
-    ) { }
+        private authService: AuthService) {
+        if (this.authService.isAuthenticated) {
+            this.router.navigateByUrl("/admin/main");
+        }
+    }
 
     authenticate(form: NgForm) {
         if (!form.valid) {
