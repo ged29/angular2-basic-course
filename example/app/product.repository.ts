@@ -21,7 +21,7 @@ export class ProductRepository {
     }
 
     saveProduct(product: Product) {
-        if (product.id == 0 || product.id == null) {
+        if (product.id === 0 || product.id == null) {
             product.id = this.generateID();
             this.products.push(product);
         } else {
@@ -36,6 +36,11 @@ export class ProductRepository {
         if (index > -1) {
             this.products.splice(index, 1);
         }
+    }
+
+    swapProducts() {
+        let p = this.products.shift();
+        this.products.push(new Product(p.id, p.name, p.category, p.price));
     }
 
     private generateID(): number {

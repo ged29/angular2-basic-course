@@ -10,13 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var forms_1 = require("@angular/forms");
 var product_component_1 = require("./product.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
             declarations: [product_component_1.ProductComponent],
             bootstrap: [product_component_1.ProductComponent]
         }), 
@@ -25,3 +26,4 @@ var AppModule = (function () {
     return AppModule;
 }());
 exports.AppModule = AppModule;
+//# sourceMappingURL=app.module.js.map

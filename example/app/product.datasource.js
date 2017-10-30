@@ -10,3 +10,4 @@ var ProductDataSource = (function () {
     return ProductDataSource;
 }());
 exports.ProductDataSource = ProductDataSource;
+//# sourceMappingURL=product.datasource.js.map

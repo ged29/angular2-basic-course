@@ -1,4 +1,5 @@
 "use strict";
+var product_model_1 = require("./product.model");
 var product_datasource_1 = require("./product.datasource");
 var ProductRepository = (function () {
     function ProductRepository() {
@@ -17,7 +18,7 @@ var ProductRepository = (function () {
     };
     ProductRepository.prototype.saveProduct = function (product) {
         var _this = this;
-        if (product.id == 0 || product.id == null) {
+        if (product.id === 0 || product.id == null) {
             product.id = this.generateID();
             this.products.push(product);
         }
@@ -34,6 +35,10 @@ var ProductRepository = (function () {
             this.products.splice(index, 1);
         }
     };
+    ProductRepository.prototype.swapProducts = function () {
+        var p = this.products.shift();
+        this.products.push(new product_model_1.Product(p.id, p.name, p.category, p.price));
+    };
     ProductRepository.prototype.generateID = function () {
         var candidate = 100;
         while (this.getProduct(candidate) != null) {
@@ -44,3 +49,4 @@ var ProductRepository = (function () {
     return ProductRepository;
 }());
 exports.ProductRepository = ProductRepository;
+//# sourceMappingURL=product.repository.js.map
