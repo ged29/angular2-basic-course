@@ -9,22 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var forms_1 = require("@angular/forms");
-var product_component_1 = require("./product.component");
-var attr_directive_1 = require("./attr.directive");
-var AppModule = (function () {
-    function AppModule() {
+var PaAttrDirective = (function () {
+    function PaAttrDirective(elementRef) {
+        this.elementRef = elementRef;
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule],
-            declarations: [product_component_1.ProductComponent, attr_directive_1.PaAttrDirective],
-            bootstrap: [product_component_1.ProductComponent]
+    PaAttrDirective.prototype.ngOnInit = function () {
+        this.elementRef.nativeElement.classList.add(this.bgClass || "bg-success");
+    };
+    __decorate([
+        core_1.Input("pa-attr"), 
+        __metadata('design:type', String)
+    ], PaAttrDirective.prototype, "bgClass", void 0);
+    PaAttrDirective = __decorate([
+        core_1.Directive({
+            selector: "[pa-attr]"
         }), 
-        __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+        __metadata('design:paramtypes', [core_1.ElementRef])
+    ], PaAttrDirective);
+    return PaAttrDirective;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.PaAttrDirective = PaAttrDirective;
+//# sourceMappingURL=attr.directive.js.map

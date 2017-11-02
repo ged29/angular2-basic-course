@@ -21,7 +21,7 @@ export class ProductRepository {
     }
 
     saveProduct(product: Product) {
-        if (product.id === 0 || product.id == null) {
+        if (product.id === undefined) {
             product.id = this.generateID();
             this.products.push(product);
         } else {
@@ -45,7 +45,7 @@ export class ProductRepository {
 
     private generateID(): number {
         let candidate = 100;
-        while (this.getProduct(candidate) != null) {
+        while (this.getProduct(candidate) !== undefined) {
             candidate++;
         }
         return candidate;

@@ -18,7 +18,7 @@ var ProductRepository = (function () {
     };
     ProductRepository.prototype.saveProduct = function (product) {
         var _this = this;
-        if (product.id === 0 || product.id == null) {
+        if (product.id === undefined) {
             product.id = this.generateID();
             this.products.push(product);
         }
@@ -41,7 +41,7 @@ var ProductRepository = (function () {
     };
     ProductRepository.prototype.generateID = function () {
         var candidate = 100;
-        while (this.getProduct(candidate) != null) {
+        while (this.getProduct(candidate) !== undefined) {
             candidate++;
         }
         return candidate;

@@ -1,0 +1,42 @@
+﻿<div class="bg-info p-a-1 m-a-1">
+    Selected Product: {{jsonProduct}}
+</div>
+<div class="p-a-1 col-xs-6">
+    <form novalidate [formGroup]="form" (ngSubmit)="submitForm(form)">
+        <!-- <div class="bg-danger p-a-1 m-b-1" *ngIf="formSubmitted && form.invalid">
+            There are problems with the form
+            <ul>
+                <li *ngFor="let error of form.getFormValidationMessages()">{{error}}</li>
+            </ul>
+        </div> -->
+        <div *ngFor="let ctrl of form.productControls" class="form-group">
+            <label>{{ctrl.label}}</label>
+            <input [(ngModel)]="newProduct[ctrl.modelProperty]" name="{{ctrl.modelProperty}}" formControlName="{{ctrl.modelProperty}}"
+                class="form-control" />
+            <ul *ngIf="(formSubmitted || ctrl.dirty) && ctrl.invalid" class="text-danger list-unstyled">
+                <li *ngFor="let msg of ctrl.getValidationMessages()">{{msg}}</li>
+            </ul>
+        </div>
+
+        <div class="text-xs-center">
+            <button type="submit" class="btn btn-primary" [disabled]="formSubmitted && form.invalid" [class.btn-secondary]="formSubmitted && form.invalid">Create</button>
+        </div>
+    </form>
+</div>
+<div class="col-xs-6">
+    <table class="table table-sm table-bordered m-t-1">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+        </tr>
+        <tr *ngFor="let item of getProducts(); let i = index" 
+            [pa-attr]="getProducts().length < 6 ? 'bg-success' : 'bg-warning'">
+            <td>{{i + 1}}</td>
+            <td>{{item.name}}</td>
+            <td [pa-attr]="item.category == 'Soccer' ? 'bg-info' : null">{{item.category}}</td>
+            <td [pa-attr]="'bg-info'">{{item.price}}</td>
+        </tr>
+    </table>
+</div>

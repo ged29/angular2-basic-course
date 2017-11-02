@@ -10,25 +10,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var product_repository_1 = require("./product.repository");
+var product_model_1 = require("./product.model");
+var form_model_1 = require("./form.model");
 var ProductComponent = (function () {
     function ProductComponent(appRef) {
+        this.newProduct = new product_model_1.Product();
         this.repository = new product_repository_1.ProductRepository();
+        this.form = new form_model_1.ProductFormGroup();
         window.appRef = appRef;
         window.repository = this.repository;
     }
+    Object.defineProperty(ProductComponent.prototype, "jsonProduct", {
+        get: function () {
+            return JSON.stringify(this.newProduct);
+        },
+        enumerable: true,
+        configurable: true
+    });
     ProductComponent.prototype.getProduct = function (id) {
         return this.repository.getProduct(Number(id));
     };
     ProductComponent.prototype.getProducts = function () {
         return this.repository.getProducts();
     };
-    ProductComponent.prototype.isSelected = function (productName) {
-        return this.selectedProductName && productName && this.selectedProductName.toUpperCase() === productName.toUpperCase();
+    ProductComponent.prototype.submitForm = function (form) {
+        this.formSubmitted = true;
+        if (form.valid) {
+            this.repository.saveProduct(this.newProduct);
+            this.newProduct = new product_model_1.Product();
+            this.formSubmitted = false;
+            form.reset();
+        }
     };
     ProductComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: "app",
-            templateUrl: "app/template.html"
+            templateUrl: "productComponent.html",
+            styleUrls: ["productComponent.css"]
         }), 
         __metadata('design:paramtypes', [core_1.ApplicationRef])
     ], ProductComponent);
