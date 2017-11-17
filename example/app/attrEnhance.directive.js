@@ -10,40 +10,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var product_model_1 = require("./product.model");
-var PaAttrDirective = (function () {
-    function PaAttrDirective() {
+var PaEnhanceDirective = (function () {
+    function PaEnhanceDirective() {
         this.click = new core_1.EventEmitter();
     }
-    PaAttrDirective.prototype.triggerCustomEvent = function () {
-        if (this.product != null) {
+    PaEnhanceDirective.prototype.triggerCustomEvent = function () {
+        if (this.product) {
             this.click.emit(this.product.category);
         }
     };
     __decorate([
-        core_1.Input("pa-attr"),
+        core_1.Input("pa-enh-class"),
         core_1.HostBinding("class"), 
         __metadata('design:type', String)
-    ], PaAttrDirective.prototype, "bgClass", void 0);
+    ], PaEnhanceDirective.prototype, "bgColor", void 0);
     __decorate([
-        core_1.Input("pa-product"), 
+        core_1.Input("pa-enh-product"), 
         __metadata('design:type', product_model_1.Product)
-    ], PaAttrDirective.prototype, "product", void 0);
+    ], PaEnhanceDirective.prototype, "product", void 0);
     __decorate([
-        core_1.Output("pa-category"), 
+        core_1.Output("pa-enh-productCategory"), 
         __metadata('design:type', Object)
-    ], PaAttrDirective.prototype, "click", void 0);
+    ], PaEnhanceDirective.prototype, "click", void 0);
     __decorate([
         core_1.HostListener("click"), 
         __metadata('design:type', Function), 
         __metadata('design:paramtypes', []), 
         __metadata('design:returntype', void 0)
-    ], PaAttrDirective.prototype, "triggerCustomEvent", null);
-    PaAttrDirective = __decorate([
+    ], PaEnhanceDirective.prototype, "triggerCustomEvent", null);
+    PaEnhanceDirective = __decorate([
         core_1.Directive({
-            selector: "[pa-attr]"
+            selector: ".pa-enhance-attr"
         }), 
         __metadata('design:paramtypes', [])
-    ], PaAttrDirective);
-    return PaAttrDirective;
+    ], PaEnhanceDirective);
+    return PaEnhanceDirective;
 }());
-exports.PaAttrDirective = PaAttrDirective;
+exports.PaEnhanceDirective = PaEnhanceDirective;
+//# sourceMappingURL=attrEnhance.directive.js.map

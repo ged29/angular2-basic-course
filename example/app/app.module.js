@@ -13,13 +13,17 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var product_component_1 = require("./product.component");
 var attr_directive_1 = require("./attr.directive");
+var attrEnhance_directive_1 = require("./attrEnhance.directive");
+var twoway_directive_1 = require("./twoway.directive");
+var paif_directive_1 = require("./paif.directive");
+var iterator_directive_1 = require("./iterator.directive");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule],
-            declarations: [product_component_1.ProductComponent, attr_directive_1.PaAttrDirective],
+            declarations: [product_component_1.ProductComponent, attr_directive_1.PaAttrDirective, attrEnhance_directive_1.PaEnhanceDirective, twoway_directive_1.PaModel, paif_directive_1.PaStructuredDirective, iterator_directive_1.PaIteratorDirective],
             bootstrap: [product_component_1.ProductComponent]
         }), 
         __metadata('design:paramtypes', [])

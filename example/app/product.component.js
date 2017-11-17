@@ -14,6 +14,7 @@ var product_model_1 = require("./product.model");
 var form_model_1 = require("./form.model");
 var ProductComponent = (function () {
     function ProductComponent(appRef) {
+        this.showTable = true;
         this.newProduct = new product_model_1.Product();
         this.repository = new product_repository_1.ProductRepository();
         this.form = new form_model_1.ProductFormGroup();

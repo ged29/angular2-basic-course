@@ -9,30 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var PaStructureDirective = (function () {
-    function PaStructureDirective(container, template) {
-        this.container = container;
+var PaIteratorDirective = (function () {
+    function PaIteratorDirective(viewContainer, template) {
+        this.viewContainer = viewContainer;
         this.template = template;
     }
-    PaStructureDirective.prototype.ngOnChanges = function (changes) {
-        var change = changes["expressionResult"];
-        if (!change.isFirstChange() && !change.currentValue) {
-            this.container.clear();
-        }
-        else if (change.currentValue) {
-            this.container.createEmbeddedView(this.template);
-        }
+    PaIteratorDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this.viewContainer.clear();
+        this.dataSource.forEach(function (item, index) {
+            return _this.viewContainer.createEmbeddedView(_this.template, new PaIteratorContext(item), index);
+        });
     };
     __decorate([
-        core_1.Input("paIf"), 
-        __metadata('design:type', Boolean)
-    ], PaStructureDirective.prototype, "expressionResult", void 0);
-    PaStructureDirective = __decorate([
+        core_1.Input("paForOf"), 
+        __metadata('design:type', Array)
+    ], PaIteratorDirective.prototype, "dataSource", void 0);
+    PaIteratorDirective = __decorate([
         core_1.Directive({
-            selector: "[paIf]"
+            selector: "[paForOf]"
         }), 
         __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.TemplateRef])
-    ], PaStructureDirective);
-    return PaStructureDirective;
+    ], PaIteratorDirective);
+    return PaIteratorDirective;
 }());
-exports.PaStructureDirective = PaStructureDirective;
+exports.PaIteratorDirective = PaIteratorDirective;
+var PaIteratorContext = (function () {
+    function PaIteratorContext($implicit) {
+        this.$implicit = $implicit;
+    }
+    return PaIteratorContext;
+}());
+//# sourceMappingURL=iterator.directive.js.map

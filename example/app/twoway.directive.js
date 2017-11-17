@@ -17,8 +17,8 @@ var PaModel = (function () {
     }
     PaModel.prototype.ngOnChanges = function (changes) {
         var change = changes["modelProperty"];
-        if (change.currentValue != this.fieldValue) {
-            this.fieldValue = changes["modelProperty"].currentValue || "";
+        if (this.fieldValue !== change.currentValue) {
+            this.fieldValue = change.currentValue || "";
             this.direction = "Model";
         }
     };
@@ -55,3 +55,4 @@ var PaModel = (function () {
     return PaModel;
 }());
 exports.PaModel = PaModel;
+//# sourceMappingURL=twoway.directive.js.map

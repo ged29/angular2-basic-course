@@ -15,6 +15,7 @@ export class ProductComponent {
     newProduct: Product;
     formSubmitted: boolean;
     form: ProductFormGroup;
+    showTable: boolean = true;
 
     constructor(appRef: ApplicationRef) {
         this.newProduct = new Product();
