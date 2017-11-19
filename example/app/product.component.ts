@@ -38,6 +38,10 @@ export class ProductComponent {
         return this.repository.getProducts();
     }
 
+    deleteProduct(id: string) {
+        this.repository.deleteProduct(Number(id));
+    }
+
     submitForm(form: NgForm) {
         this.formSubmitted = true;
 

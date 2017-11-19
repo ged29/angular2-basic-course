@@ -10,16 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var PaIteratorDirective = (function () {
-    function PaIteratorDirective(viewContainer, template) {
+    function PaIteratorDirective(viewContainer, template, differs, changeDetector) {
         this.viewContainer = viewContainer;
         this.template = template;
+        this.differs = differs;
+        this.changeDetector = changeDetector;
+        this.viewsMap = new Map();
+        this.shouldReindexCtx = false;
     }
     PaIteratorDirective.prototype.ngOnInit = function () {
+        this.differ = this.differs.find(this.dataSource).create(this.changeDetector);
+    };
+    PaIteratorDirective.prototype.ngDoCheck = function () {
         var _this = this;
-        this.viewContainer.clear();
-        this.dataSource.forEach(function (item, index) {
-            return _this.viewContainer.createEmbeddedView(_this.template, new PaIteratorContext(item), index);
-        });
+        var changes = this.differ.diff(this.dataSource);
+        if (changes !== null) {
+            changes.forEachAddedItem(function (item) { return _this.addItem(item); });
+            changes.forEachRemovedItem(function (item) { return _this.removeItem(item); });
+            if (this.shouldReindexCtx) {
+                this.reIndexCtx();
+            }
+        }
+    };
+    PaIteratorDirective.prototype.addItem = function (addition) {
+        var ctx = new PaIteratorContext(addition.item, addition.currentIndex, this.dataSource.length), view = this.viewContainer.createEmbeddedView(this.template, ctx);
+        this.viewsMap.set(addition.trackById, view);
+    };
+    PaIteratorDirective.prototype.removeItem = function (removal) {
+        var id = removal.trackById;
+        if (!this.viewsMap.has(id))
+            return;
+        var view = this.viewsMap.get(id), viewIndexToRemove = this.viewContainer.indexOf(view);
+        this.viewContainer.remove(viewIndexToRemove);
+        this.viewsMap.delete(id);
+        this.shouldReindexCtx = true;
+    };
+    PaIteratorDirective.prototype.reIndexCtx = function () {
+        var index = 0, total = this.viewsMap.size;
+        this.viewsMap.forEach(function (view) { return view.context.setData(index++, total); });
+        this.shouldReindexCtx = false;
     };
     __decorate([
         core_1.Input("paForOf"), 
@@ -29,15 +58,23 @@ var PaIteratorDirective = (function () {
         core_1.Directive({
             selector: "[paForOf]"
         }), 
-        __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.TemplateRef])
+        __metadata('design:paramtypes', [core_1.ViewContainerRef, core_1.TemplateRef, core_1.IterableDiffers, core_1.ChangeDetectorRef])
     ], PaIteratorDirective);
     return PaIteratorDirective;
 }());
 exports.PaIteratorDirective = PaIteratorDirective;
 var PaIteratorContext = (function () {
-    function PaIteratorContext($implicit) {
+    function PaIteratorContext($implicit, index, total) {
         this.$implicit = $implicit;
+        this.setData(index, total);
     }
+    PaIteratorContext.prototype.setData = function (index, total) {
+        this.index = index;
+        this.even = index % 2 === 0;
+        this.odd = !this.even;
+        this.first = index === 0;
+        this.last = index === total - 1;
+    };
     return PaIteratorContext;
 }());
 //# sourceMappingURL=iterator.directive.js.map

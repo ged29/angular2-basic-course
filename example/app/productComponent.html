@@ -1,26 +1,60 @@
-﻿<div class="checkbox">
-    <label>
-        <input type="checkbox" [(ngModel)]="showTable" /> Show Table
-    </label>
+﻿<div class="col-xs-4">
+    <form novalidate [formGroup]="form" (ngSubmit)="submitForm(form)">
+        <div class="form-group" *ngFor="let ctrl of form.productControls">
+            <label>{{ctrl.label}}</label>
+            <input type="text" class="form-control" [(ngModel)]="newProduct[ctrl.modelProperty]" 
+            name="{{ctrl.modelProperty}}" 
+            formControlName="{{ctrl.modelProperty}}" />
+            <ul class="text-danger list-unstyled" *ngIf="(formSubmitted || ctrl.dirty) && ctrl.invalid">
+                <li *ngFor="let error of ctrl.getValidationMessages()">{{error}}</li>
+            </ul>
+        </div>
+        <button class="btn btn-primary" type="submit"
+                [disabled]="formSubmitted && !form.valid"
+                [class.btn-secondary]="formSubmitted && !form.valid">
+            Create
+        </button>
+    </form>
 </div>
+<div class="col-xs-8">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" [(ngModel)]="showTable" /> Show Table
+        </label>
+    </div>
 
-<table *paIf="showTable" class="table table-sm table-bordered m-t-1">
-    <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Price</th>
-    </tr>
-    <!-- <tr *ngFor="let item of getProducts(); let i = index" class="pa-enhance-attr" [pa-enh-class]="getProducts().length < 6 ? 'bg-success' : 'bg-warning'"
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" [(ngModel)]="darkColor" /> Dark Cell Color
+        </label>
+    </div>
+
+    <table *paIf="showTable" [isTdBgColorDark]="darkColor" class="table table-sm table-bordered m-t-1">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+        <!-- <tr *ngFor="let item of getProducts(); let i = index" class="pa-enhance-attr" [pa-enh-class]="getProducts().length < 6 ? 'bg-success' : 'bg-warning'"
         [pa-enh-product]="item" (pa-enh-productCategory)="newProduct.category=$event">
         <td>{{i + 1}}</td>
         <td>{{item.name}}</td>
         <td [pa-attr]="item.category == 'Soccer' ? 'bg-info' : null">{{item.category}}</td>
         <td [pa-attr]="'bg-info'">{{item.price}}</td>
     </tr> -->
-    <template [paForOf]="getProducts()" let-item>
-        <tr>
-            <td colspan="4">{{item.name}}</td>
+        <tr *paFor="let item of getProducts(); let i=index;let even=even; let odd=odd; let first=first; let last=last;" [class.bg-info]="odd"
+            [class.bg-warning]="even">
+            <td>{{i+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.category}}</td>
+            <td>{{item.price}}</td>
+            <td class="text-xs-center">
+                <button class="btn btn-danger btn-sm" (click)="deleteProduct(item.id)">
+                    Delete
+                </button>
+            </td>
         </tr>
-    </template>
-</table>
+    </table>
+</div>

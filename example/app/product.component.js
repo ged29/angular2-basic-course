@@ -34,6 +34,9 @@ var ProductComponent = (function () {
     ProductComponent.prototype.getProducts = function () {
         return this.repository.getProducts();
     };
+    ProductComponent.prototype.deleteProduct = function (id) {
+        this.repository.deleteProduct(Number(id));
+    };
     ProductComponent.prototype.submitForm = function (form) {
         this.formSubmitted = true;
         if (form.valid) {
