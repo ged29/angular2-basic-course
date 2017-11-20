@@ -11,7 +11,7 @@
 
     angularModules.forEach(function (pkg) {
         packages["@angular/" + pkg] = {
-            main: "/bundles/" + pkg + ".umd.js"
+            main: "/bundles/" + pkg + ".umd.min.js"
         };
     });
 

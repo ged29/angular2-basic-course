@@ -9,27 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var product_repository_1 = require("./product.repository");
-var ProductComponent = (function () {
-    function ProductComponent(appRef) {
-        this.repository = new product_repository_1.ProductRepository();
-        window.appRef = appRef;
-        window.repository = this.repository;
+var ToggleViewComponent = (function () {
+    function ToggleViewComponent() {
+        this.showContent = true;
     }
-    ProductComponent.prototype.addProduct = function (newProduct) {
-        this.repository.saveProduct(newProduct);
-    };
-    ProductComponent = __decorate([
+    ToggleViewComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: "app",
-            templateUrl: "template.html",
-            styleUrls: ["productComponent.css"],
-            styles: ["/deep/ div { border: 2px black solid; font-style:italic }"]
+            selector: "paToggleView",
+            templateUrl: "toggleView.component.html"
         }), 
-        __metadata('design:paramtypes', [core_1.ApplicationRef])
-    ], ProductComponent);
-    return ProductComponent;
+        __metadata('design:paramtypes', [])
+    ], ToggleViewComponent);
+    return ToggleViewComponent;
 }());
-exports.ProductComponent = ProductComponent;
-//# sourceMappingURL=product.component.js.map
+exports.ToggleViewComponent = ToggleViewComponent;
+//# sourceMappingURL=toggleView.component.js.map

@@ -1,0 +1,22 @@
+<table class="table table-sm table-bordered m-t-1">
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+    <tr *paFor="let item of getProducts(); let i=index; let even=even; let odd=odd;"
+        [class.bg-info]="odd"
+        [class.bg-warning]="even">
+        <td>{{i+1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.category}}</td>
+        <td>{{item.price}}</td>
+        <td class="text-xs-center">
+            <button class="btn btn-danger btn-sm" (click)="deleteProduct(item.id)">
+                Delete
+            </button>
+        </td>
+    </tr>
+</table>

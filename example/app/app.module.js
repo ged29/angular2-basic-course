@@ -19,6 +19,9 @@ var paif_directive_1 = require("./paif.directive");
 var iterator_directive_1 = require("./iterator.directive");
 var cellBgColor_directive_1 = require("./cellBgColor.directive");
 var cellBgColorSwitcher_directive_1 = require("./cellBgColorSwitcher.directive");
+var productTable_component_1 = require("./productTable.component");
+var productForm_component_1 = require("./productForm.component");
+var toggleView_component_1 = require("./toggleView.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -26,7 +29,8 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule],
             declarations: [product_component_1.ProductComponent, attr_directive_1.PaAttrDirective, attrEnhance_directive_1.PaEnhanceDirective, twoway_directive_1.PaModel,
-                paif_directive_1.PaStructuredDirective, iterator_directive_1.PaIteratorDirective, cellBgColor_directive_1.PaCellBgColor, cellBgColorSwitcher_directive_1.PaCellBgColorSwitcher],
+                paif_directive_1.PaStructuredDirective, iterator_directive_1.PaIteratorDirective, cellBgColor_directive_1.PaCellBgColor, cellBgColorSwitcher_directive_1.PaCellBgColorSwitcher,
+                productTable_component_1.ProductTableComponent, productForm_component_1.ProductFormComponent, toggleView_component_1.ToggleViewComponent],
             bootstrap: [product_component_1.ProductComponent]
         }), 
         __metadata('design:paramtypes', [])
