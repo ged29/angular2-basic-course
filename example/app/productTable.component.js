@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var product_repository_1 = require("./product.repository");
+var cellBgColor_directive_1 = require("./cellBgColor.directive");
 var ProductTableComponent = (function () {
     function ProductTableComponent() {
         this.showTable = true;
@@ -23,10 +24,23 @@ var ProductTableComponent = (function () {
     ProductTableComponent.prototype.deleteProduct = function (id) {
         this.repository.deleteProduct(Number(id));
     };
+    ProductTableComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.viewChildren.changes.subscribe(function () { return _this.updateViewChildren(); });
+        this.updateViewChildren();
+    };
+    ProductTableComponent.prototype.updateViewChildren = function () {
+        var _this = this;
+        setTimeout(function () { return _this.viewChildren.forEach(function (child, index) { return child.setColor(index % 2 === 0 ? true : false); }); }, 0);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', product_repository_1.ProductRepository)
     ], ProductTableComponent.prototype, "repository", void 0);
+    __decorate([
+        core_1.ViewChildren(cellBgColor_directive_1.PaCellBgColor), 
+        __metadata('design:type', core_1.QueryList)
+    ], ProductTableComponent.prototype, "viewChildren", void 0);
     ProductTableComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

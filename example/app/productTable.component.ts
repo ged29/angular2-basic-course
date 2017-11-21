@@ -1,5 +1,6 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, ViewChildren, QueryList } from "@angular/core";
 import { ProductRepository } from "./product.repository";
+import { PaCellBgColor } from "./cellBgColor.directive";
 
 @Component({
     moduleId: module.id,
@@ -7,6 +8,7 @@ import { ProductRepository } from "./product.repository";
     templateUrl: "productTable.component.html"
 })
 export class ProductTableComponent {
+    showTable: boolean = true;
 
     @Input()
     repository: ProductRepository;
@@ -23,5 +25,15 @@ export class ProductTableComponent {
         this.repository.deleteProduct(Number(id));
     }
 
-    showTable: boolean = true;
+    @ViewChildren(PaCellBgColor)
+    viewChildren: QueryList<PaCellBgColor>; // set before ngAfterViewInit
+
+    ngAfterViewInit() {
+        this.viewChildren.changes.subscribe(() => this.updateViewChildren());
+        this.updateViewChildren();
+    }
+
+    private updateViewChildren() {
+        setTimeout(() => this.viewChildren.forEach((child, index) => child.setColor(index % 2 === 0 ? true : false)), 0);
+    }
 }
