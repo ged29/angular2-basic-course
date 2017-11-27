@@ -22,6 +22,15 @@ var cellBgColorSwitcher_directive_1 = require("./cellBgColorSwitcher.directive")
 var productTable_component_1 = require("./productTable.component");
 var productForm_component_1 = require("./productForm.component");
 var toggleView_component_1 = require("./toggleView.component");
+var addTax_pipe_1 = require("./addTax.pipe");
+var categoryFilter_pipe_1 = require("./categoryFilter.pipe");
+var discountDisplay_component_1 = require("./discountDisplay.component");
+var discountEditor_component_1 = require("./discountEditor.component");
+var discount_service_1 = require("./discount.service");
+var discountAmount_directive_1 = require("./discountAmount.directive");
+var product_datasource_1 = require("./product.datasource");
+var product_repository_1 = require("./product.repository");
+var log_service_1 = require("./log.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -30,7 +39,30 @@ var AppModule = (function () {
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule],
             declarations: [product_component_1.ProductComponent, attr_directive_1.PaAttrDirective, attrEnhance_directive_1.PaEnhanceDirective, twoway_directive_1.PaModel,
                 paif_directive_1.PaStructuredDirective, iterator_directive_1.PaIteratorDirective, cellBgColor_directive_1.PaCellBgColor, cellBgColorSwitcher_directive_1.PaCellBgColorSwitcher,
-                productTable_component_1.ProductTableComponent, productForm_component_1.ProductFormComponent, toggleView_component_1.ToggleViewComponent],
+                productTable_component_1.ProductTableComponent, productForm_component_1.ProductFormComponent, toggleView_component_1.ToggleViewComponent,
+                addTax_pipe_1.PaAddTaxPipe, categoryFilter_pipe_1.PaCategoryFilterPipe,
+                discountDisplay_component_1.PaDiscountDisplayComponent, discountEditor_component_1.PaDiscountEditorComponent,
+                discountAmount_directive_1.PaDiscountAmountDirective],
+            //providers: [{ provide: LOCALE_ID, useValue: "ru-RU" }],
+            providers: [discount_service_1.DiscountService, product_datasource_1.ProductDataSource, product_repository_1.ProductRepository,
+                {
+                    provide: log_service_1.LOG_LEVEL, useValue: log_service_1.LogLevel.DEBUG
+                },
+                {
+                    provide: "debugLevel", useExisting: log_service_1.LOG_LEVEL
+                },
+                {
+                    provide: log_service_1.TEST_LEVEL, useValue: "test me"
+                },
+                {
+                    provide: log_service_1.LogService,
+                    deps: ["debugLevel", log_service_1.TEST_LEVEL],
+                    useFactory: function (level, test) {
+                        var logger = new log_service_1.LogService();
+                        logger.minimumLevel = level;
+                        return logger;
+                    }
+                }],
             bootstrap: [product_component_1.ProductComponent]
         }), 
         __metadata('design:paramtypes', [])

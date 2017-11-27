@@ -1,13 +1,13 @@
-﻿import { Product } from "./product.model";
+﻿import { Injectable } from "@angular/core";
+import { Product } from "./product.model";
 import { ProductDataSource } from "./product.datasource";
 
+@Injectable()
 export class ProductRepository {
-    private dataSource: ProductDataSource;
     private products: Product[];
     private locator = (product: Product, id: number) => product.id === id;
 
-    constructor() {
-        this.dataSource = new ProductDataSource();
+    constructor(private dataSource: ProductDataSource) {
         this.products = new Array<Product>();
         this.dataSource.getData().forEach(p => this.products.push(p));
     }

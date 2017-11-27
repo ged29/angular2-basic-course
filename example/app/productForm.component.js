@@ -11,35 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var form_model_1 = require("./form.model");
 var product_model_1 = require("./product.model");
+var product_repository_1 = require("./product.repository");
 var ProductFormComponent = (function () {
-    function ProductFormComponent() {
+    function ProductFormComponent(repository) {
+        this.repository = repository;
         this.form = new form_model_1.ProductFormGroup();
         this.newProduct = new product_model_1.Product();
         this.isFormSubmitted = false;
-        this.paNewProductEvent = new core_1.EventEmitter();
     }
     ProductFormComponent.prototype.submitForm = function (form) {
         this.isFormSubmitted = true;
         if (form.valid) {
-            this.paNewProductEvent.emit(this.newProduct);
+            this.repository.saveProduct(this.newProduct);
             this.newProduct = new product_model_1.Product();
             this.form.reset();
             this.isFormSubmitted = false;
         }
     };
-    __decorate([
-        core_1.Output("paNewProduct"), 
-        __metadata('design:type', Object)
-    ], ProductFormComponent.prototype, "paNewProductEvent", void 0);
     ProductFormComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: "paProductForm",
             templateUrl: "productForm.component.html",
-            styleUrls: ["productForm.component.css"],
-            styles: ["div { background-color: lightgreen }"]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [product_repository_1.ProductRepository])
     ], ProductFormComponent);
     return ProductFormComponent;
 }());

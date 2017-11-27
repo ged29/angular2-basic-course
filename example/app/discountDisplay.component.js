@@ -9,24 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var PaCellBgColor = (function () {
-    function PaCellBgColor() {
-        this.bgClass = "";
+var discount_service_1 = require("./discount.service");
+var PaDiscountDisplayComponent = (function () {
+    function PaDiscountDisplayComponent(discounter) {
+        this.discounter = discounter;
     }
-    PaCellBgColor.prototype.setColor = function (isDark) {
-        this.bgClass = isDark ? "bg-inverse" : "";
-    };
-    __decorate([
-        core_1.HostBinding("class"), 
-        __metadata('design:type', String)
-    ], PaCellBgColor.prototype, "bgClass", void 0);
-    PaCellBgColor = __decorate([
-        core_1.Directive({
-            selector: "td[paApplyColor]"
+    PaDiscountDisplayComponent = __decorate([
+        core_1.Component({
+            selector: "paDiscountDisplay",
+            template: "<div class=\"bg-info p-a-1\">The discount is {{discounter.discount}}</div>"
         }), 
-        __metadata('design:paramtypes', [])
-    ], PaCellBgColor);
-    return PaCellBgColor;
+        __metadata('design:paramtypes', [discount_service_1.DiscountService])
+    ], PaDiscountDisplayComponent);
+    return PaDiscountDisplayComponent;
 }());
-exports.PaCellBgColor = PaCellBgColor;
-//# sourceMappingURL=cellBgColor.directive.js.map
+exports.PaDiscountDisplayComponent = PaDiscountDisplayComponent;
+//# sourceMappingURL=discountDisplay.component.js.map

@@ -1,6 +1,7 @@
 import { Component, Input, ViewChildren, QueryList } from "@angular/core";
 import { ProductRepository } from "./product.repository";
 import { PaCellBgColor } from "./cellBgColor.directive";
+import { DiscountService } from "./discount.service";
 
 @Component({
     moduleId: module.id,
@@ -10,8 +11,8 @@ import { PaCellBgColor } from "./cellBgColor.directive";
 export class ProductTableComponent {
     showTable: boolean = true;
 
-    @Input()
-    repository: ProductRepository;
+    constructor(private repository: ProductRepository) {
+    }
 
     getProduct(id: string) {
         return this.repository.getProduct(Number(id));
@@ -25,15 +26,7 @@ export class ProductTableComponent {
         this.repository.deleteProduct(Number(id));
     }
 
-    @ViewChildren(PaCellBgColor)
-    viewChildren: QueryList<PaCellBgColor>; // set before ngAfterViewInit
-
-    ngAfterViewInit() {
-        this.viewChildren.changes.subscribe(() => this.updateViewChildren());
-        this.updateViewChildren();
-    }
-
-    private updateViewChildren() {
-        setTimeout(() => this.viewChildren.forEach((child, index) => child.setColor(index % 2 === 0 ? true : false)), 0);
-    }
+    dateObject: Date = new Date(2020, 1, 20);
+    dateString: string = "2020-02-20T00:00:00.000Z";
+    dateNumber: number = 1582156800000;
 }

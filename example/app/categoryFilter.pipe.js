@@ -9,24 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var PaCellBgColor = (function () {
-    function PaCellBgColor() {
-        this.bgClass = "";
+var PaCategoryFilterPipe = (function () {
+    function PaCategoryFilterPipe() {
     }
-    PaCellBgColor.prototype.setColor = function (isDark) {
-        this.bgClass = isDark ? "bg-inverse" : "";
+    PaCategoryFilterPipe.prototype.transform = function (products, category) {
+        return category === undefined
+            ? products
+            : products.filter(function (p) { return p.category === category; });
     };
-    __decorate([
-        core_1.HostBinding("class"), 
-        __metadata('design:type', String)
-    ], PaCellBgColor.prototype, "bgClass", void 0);
-    PaCellBgColor = __decorate([
-        core_1.Directive({
-            selector: "td[paApplyColor]"
+    PaCategoryFilterPipe = __decorate([
+        core_1.Pipe({
+            name: "filter",
+            pure: false
         }), 
         __metadata('design:paramtypes', [])
-    ], PaCellBgColor);
-    return PaCellBgColor;
+    ], PaCategoryFilterPipe);
+    return PaCategoryFilterPipe;
 }());
-exports.PaCellBgColor = PaCellBgColor;
-//# sourceMappingURL=cellBgColor.directive.js.map
+exports.PaCategoryFilterPipe = PaCategoryFilterPipe;
+//# sourceMappingURL=categoryFilter.pipe.js.map
