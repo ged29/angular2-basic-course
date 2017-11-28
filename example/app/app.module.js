@@ -9,25 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var forms_1 = require("@angular/forms");
-var product_component_1 = require("./product.component");
-var productTable_component_1 = require("./productTable.component");
-var productForm_component_1 = require("./productForm.component");
-var toggleView_component_1 = require("./toggleView.component");
-var discountDisplay_component_1 = require("./discountDisplay.component");
-var discountEditor_component_1 = require("./discountEditor.component");
 var model_module_1 = require("./model/model.module");
 var common_module_1 = require("./common/common.module");
+var components_module_1 = require("./components/components.module");
+var productTable_component_1 = require("./components/productTable.component");
+var productForm_component_1 = require("./components/productForm.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, model_module_1.ModelModule, common_module_1.CommonModule],
-            declarations: [
-                product_component_1.ProductComponent, productTable_component_1.ProductTableComponent, productForm_component_1.ProductFormComponent, toggleView_component_1.ToggleViewComponent,
-                discountDisplay_component_1.PaDiscountDisplayComponent, discountEditor_component_1.PaDiscountEditorComponent],
+            imports: [model_module_1.ModelModule, common_module_1.CommonModule, components_module_1.ComponentsModule],
             bootstrap: [productTable_component_1.ProductTableComponent, productForm_component_1.ProductFormComponent]
         }), 
         __metadata('design:paramtypes', [])

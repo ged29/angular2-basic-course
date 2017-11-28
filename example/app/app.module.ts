@@ -1,21 +1,14 @@
-﻿import { NgModule } from "@angular/core";
+﻿import { NgModule, LOCALE_ID } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { ProductComponent } from "./product.component";
-import { ProductTableComponent } from "./productTable.component";
-import { ProductFormComponent } from "./productForm.component";
-import { ToggleViewComponent } from "./toggleView.component";
-import { LOCALE_ID } from "@angular/core";
-import { PaDiscountDisplayComponent } from "./discountDisplay.component";
-import { PaDiscountEditorComponent } from "./discountEditor.component";
 import { ModelModule } from "./model/model.module";
 import { CommonModule } from "./common/common.module";
+import { ComponentsModule } from "./components/components.module";
+import { ProductTableComponent } from "./components/productTable.component";
+import { ProductFormComponent } from "./components/productForm.component";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, ModelModule, CommonModule],
-    declarations: [
-        ProductComponent, ProductTableComponent, ProductFormComponent, ToggleViewComponent,
-        PaDiscountDisplayComponent, PaDiscountEditorComponent],
+    imports: [ModelModule, CommonModule, ComponentsModule],   
     bootstrap: [ProductTableComponent, ProductFormComponent]
 })
 export class AppModule { }

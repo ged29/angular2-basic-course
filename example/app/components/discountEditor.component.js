@@ -9,19 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var discount_service_1 = require("./common/discount.service");
-var PaDiscountDisplayComponent = (function () {
-    function PaDiscountDisplayComponent(discounter) {
+var discount_service_1 = require("../common/discount.service");
+var PaDiscountEditorComponent = (function () {
+    function PaDiscountEditorComponent(discounter) {
         this.discounter = discounter;
     }
-    PaDiscountDisplayComponent = __decorate([
+    PaDiscountEditorComponent = __decorate([
         core_1.Component({
-            selector: "paDiscountDisplay",
-            template: "<div class=\"bg-info p-a-1\">The discount is {{discounter.discount}}</div>"
+            selector: "paDiscountEditor",
+            template: "<div class=\"form-group\">\n                  <label>Discount</label>\n                  <input [(ngModel)]=\"discounter.discount\" class=\"form-control\" type=\"number\" />\n               </div>"
         }), 
         __metadata('design:paramtypes', [discount_service_1.DiscountService])
-    ], PaDiscountDisplayComponent);
-    return PaDiscountDisplayComponent;
+    ], PaDiscountEditorComponent);
+    return PaDiscountEditorComponent;
 }());
-exports.PaDiscountDisplayComponent = PaDiscountDisplayComponent;
-//# sourceMappingURL=discountDisplay.component.js.map
+exports.PaDiscountEditorComponent = PaDiscountEditorComponent;
+//# sourceMappingURL=discountEditor.component.js.map

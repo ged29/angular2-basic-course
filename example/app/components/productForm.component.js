@@ -9,10 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var form_model_1 = require("./model/form.model");
-var product_model_1 = require("./model/product.model");
-var product_repository_1 = require("./model/product.repository");
-var valueDisplay_directive_1 = require("./common/valueDisplay.directive");
+var form_model_1 = require("../model/form.model");
+var product_model_1 = require("../model/product.model");
+var product_repository_1 = require("../model/product.repository");
+var valueDisplay_directive_1 = require("../common/valueDisplay.directive");
 var ProductFormComponent = (function () {
     function ProductFormComponent(repository) {
         this.repository = repository;
