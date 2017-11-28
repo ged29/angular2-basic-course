@@ -2,7 +2,7 @@ import {
     Directive, ElementRef, Attribute, Input, Output, SimpleChange, EventEmitter,
     HostListener, HostBinding
 } from "@angular/core";
-import { Product } from "./product.model";
+import { Product } from "../model/product.model";
 
 @Directive({
     selector: "[pa-attr]"

@@ -17,7 +17,7 @@ export class DiscountService {
     }
 
     public applyDiscount(price: number) {
-        this.logger.logInfoMessage(`Discount ${this.discount} applied to price: ${price}`);
+        //this.logger.logInfoMessage(`Discount ${this.discount} applied to price: ${price}`);
         return Math.max(price - this.discountValue, 5);
     }
 }

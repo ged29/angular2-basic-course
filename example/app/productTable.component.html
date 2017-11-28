@@ -17,11 +17,12 @@
                 Delete
             </button>
         </td>
-        <td [pa-price]="item.price" #discount="discount">
+        <!-- <td [pa-price]="item.price" #discount="discount">
             {{discount.discountedPrice | currency:"USD":true}}
-        </td>
+        </td> -->
+        <td>{{item.price | discount | currency:"USD":true:"1.2-2"}}</td>
     </tr>
 </table>
 
-<paDiscountEditor></paDiscountEditor>
-<paDiscountDisplay></paDiscountDisplay>
+<!-- <paDiscountEditor></paDiscountEditor>
+<paDiscountDisplay></paDiscountDisplay> -->

@@ -9,19 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var discount_service_1 = require("./common/discount.service");
-var PaDiscountDisplayComponent = (function () {
-    function PaDiscountDisplayComponent(discounter) {
-        this.discounter = discounter;
+var product_datasource_1 = require("./product.datasource");
+var product_repository_1 = require("./product.repository");
+var ModelModule = (function () {
+    function ModelModule() {
     }
-    PaDiscountDisplayComponent = __decorate([
-        core_1.Component({
-            selector: "paDiscountDisplay",
-            template: "<div class=\"bg-info p-a-1\">The discount is {{discounter.discount}}</div>"
+    ModelModule = __decorate([
+        core_1.NgModule({
+            providers: [product_repository_1.ProductRepository, product_datasource_1.ProductDataSource]
         }), 
-        __metadata('design:paramtypes', [discount_service_1.DiscountService])
-    ], PaDiscountDisplayComponent);
-    return PaDiscountDisplayComponent;
+        __metadata('design:paramtypes', [])
+    ], ModelModule);
+    return ModelModule;
 }());
-exports.PaDiscountDisplayComponent = PaDiscountDisplayComponent;
-//# sourceMappingURL=discountDisplay.component.js.map
+exports.ModelModule = ModelModule;
+//# sourceMappingURL=model.module.js.map

@@ -26,7 +26,7 @@ var DiscountService = (function () {
         configurable: true
     });
     DiscountService.prototype.applyDiscount = function (price) {
-        this.logger.logInfoMessage("Discount " + this.discount + " applied to price: " + price);
+        //this.logger.logInfoMessage(`Discount ${this.discount} applied to price: ${price}`);
         return Math.max(price - this.discountValue, 5);
     };
     DiscountService = __decorate([

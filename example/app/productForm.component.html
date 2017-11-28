@@ -1,19 +1,19 @@
 <form novalidate [formGroup]="form" (ngSubmit)="submitForm(form)">
     <div class="form-group" *ngFor="let ctrl of form.productControls">
         <label>{{ctrl.label}}</label>
-        <input class="form-control" 
-             [(ngModel)]="newProduct[ctrl.modelProperty]"
-               name="{{ctrl.modelProperty}}" formControlName="{{ctrl.modelProperty}}" />
+        <input class="form-control" [(ngModel)]="newProduct[ctrl.modelProperty]" name="{{ctrl.modelProperty}}" formControlName="{{ctrl.modelProperty}}"
+        />
         <ul *ngIf="(isFormSubmitted || ctrl.dirty) && ctrl.invalid">
             <li *ngFor="let error of ctrl.getValidationMessages()">{{error}}</li>
         </ul>
     </div>
-    <button type="submit" class="btn btn-primary"
-            [disabled]="isFormSubmitted && !form.valid"
-            [class.btn-secondary]="isFormSubmitted && !form.valid">
+    <button type="submit" class="btn btn-primary" [disabled]="isFormSubmitted && !form.valid" [class.btn-secondary]="isFormSubmitted && !form.valid">
         Create
     </button>
 </form>
-
-<paDiscountEditor></paDiscountEditor>
-<paDiscountDisplay></paDiscountDisplay>
+<!-- <div class="bg-info m-t-1 p-a-1">
+    View Child Value: <span paDisplayValue></span>
+</div>
+<div class="bg-info m-t-1 p-a-1">
+    Content Child Value: <ng-content></ng-content>
+</div> -->

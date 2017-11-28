@@ -1,7 +1,7 @@
 import { Component, Input, ViewChildren, QueryList } from "@angular/core";
-import { ProductRepository } from "./product.repository";
-import { PaCellBgColor } from "./cellBgColor.directive";
-import { DiscountService } from "./discount.service";
+import { PaCellBgColor } from "./common/cellBgColor.directive";
+import { DiscountService } from "./common/discount.service";
+import { ProductRepository } from "./model/product.repository";
 
 @Component({
     moduleId: module.id,

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var discount_service_1 = require("./discount.service");
+var discount_service_1 = require("./common/discount.service");
 var PaDiscountEditorComponent = (function () {
     function PaDiscountEditorComponent(discounter) {
         this.discounter = discounter;
