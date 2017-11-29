@@ -1,1 +1,0 @@
-{"version":3,"file":"toggleView.component.js","sourceRoot":"","sources":["toggleView.component.ts"],"names":[],"mappings":";;;;;;;;;;AAAA,qBAA0B,eAAe,CAAC,CAAA;AAO1C;IAAA;QACI,gBAAW,GAAY,IAAI,CAAC;IAChC,CAAC;IAPD;QAAC,gBAAS,CAAC;YACP,QAAQ,EAAE,MAAM,CAAC,EAAE;YACnB,QAAQ,EAAE,cAAc;YACxB,WAAW,EAAE,2BAA2B;SAC3C,CAAC;;2BAAA;IAGF,0BAAC;AAAD,CAAC,AAFD,IAEC;AAFY,2BAAmB,sBAE/B,CAAA"}
