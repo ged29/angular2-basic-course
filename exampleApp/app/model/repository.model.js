@@ -16,7 +16,7 @@ var Model = (function () {
         this.dataSource = dataSource;
         this.locator = function (p, id) { return p.id == id; };
         this.products = new Array();
-        this.dataSource.getData().subscribe(function (data) { return _this.products = data; });
+        this.dataSource.getProducts().subscribe(function (data) { return _this.products = data; });
     }
     Model.prototype.getProducts = function () {
         return this.products;
@@ -28,28 +28,25 @@ var Model = (function () {
     Model.prototype.saveProduct = function (product) {
         var _this = this;
         if (product.id == 0 || product.id == undefined) {
-            product.id = this.generateID();
-            this.products.push(product);
+            this.dataSource
+                .saveProduct(product)
+                .subscribe(function (p) { return _this.products.push(product); });
         }
         else {
-            var index = this.products
-                .findIndex(function (p) { return _this.locator(p, product.id); });
-            this.products.splice(index, 1, product);
+            this.dataSource
+                .updateProduct(product)
+                .subscribe(function (updatedProduct) {
+                var findId = updatedProduct.id, index = _this.products.findIndex(function (p) { return _this.locator(p, findId); });
+                _this.products.splice(index, 1, updatedProduct);
+            });
         }
     };
     Model.prototype.deleteProduct = function (id) {
         var _this = this;
-        var index = this.products.findIndex(function (p) { return _this.locator(p, id); });
-        if (index > -1) {
-            this.products.splice(index, 1);
-        }
-    };
-    Model.prototype.generateID = function () {
-        var candidate = 100;
-        while (this.getProduct(candidate) != null) {
-            candidate++;
-        }
-        return candidate;
+        this.dataSource.deleteProduct(id).subscribe(function (deletedProduct) {
+            var findId = deletedProduct.id, index = _this.products.findIndex(function (p) { return _this.locator(p, findId); });
+            _this.products.splice(index, 1);
+        });
     };
     Model = __decorate([
         core_1.Injectable(), 

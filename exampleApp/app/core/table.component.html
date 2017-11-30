@@ -6,9 +6,7 @@
         <td style="vertical-align:middle">{{item.id}}</td>
         <td style="vertical-align:middle">{{item.name}}</td>
         <td style="vertical-align:middle">{{item.category}}</td>
-        <td style="vertical-align:middle">
-            {{item.price | currency:"USD":true }}
-        </td>
+        <td style="vertical-align:middle">{{item.price | currency:"USD":true }}</td>
         <td class="text-xs-center">
             <button class="btn btn-danger btn-sm" (click)="deleteProduct(item.id)">
                 Delete
@@ -19,6 +17,5 @@
         </td>
     </tr>
 </table>
-<button class="btn btn-primary" (click)="createProduct()">
-    Create New Product
-</button>
+<button class="btn btn-primary" (click)="createProduct()">Create New Product</button>
+<button class="btn btn-danger" (click)="deleteProduct(-1)">Generate HTTP Error</button>

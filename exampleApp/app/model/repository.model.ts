@@ -9,7 +9,7 @@ export class Model {
 
     constructor(private dataSource: RestDataSource) {
         this.products = new Array<Product>();
-        this.dataSource.getData().subscribe(data => this.products = data);
+        this.dataSource.getProducts().subscribe(data => this.products = data);
     }
 
     getProducts(): Product[] {
@@ -22,27 +22,26 @@ export class Model {
 
     saveProduct(product: Product) {
         if (product.id == 0 || product.id == undefined) {
-            product.id = this.generateID();
-            this.products.push(product);
-        } else {
-            let index = this.products
-                .findIndex(p => this.locator(p, product.id));
-            this.products.splice(index, 1, product);
+            this.dataSource
+                .saveProduct(product)
+                .subscribe(p => this.products.push(product));
+        }
+        else {
+            this.dataSource
+                .updateProduct(product)
+                .subscribe(updatedProduct => {
+                    let findId = updatedProduct.id,
+                        index = this.products.findIndex(p => this.locator(p, findId));
+                    this.products.splice(index, 1, updatedProduct);
+                });
         }
     }
 
     deleteProduct(id: number) {
-        let index = this.products.findIndex(p => this.locator(p, id));
-        if (index > -1) {
+        this.dataSource.deleteProduct(id).subscribe(deletedProduct => {
+            let findId = deletedProduct.id,
+                index = this.products.findIndex(p => this.locator(p, findId));
             this.products.splice(index, 1);
-        }
-    }
-
-    private generateID(): number {
-        let candidate = 100;
-        while (this.getProduct(candidate) != null) {
-            candidate++;
-        }
-        return candidate;
+        });
     }
 }

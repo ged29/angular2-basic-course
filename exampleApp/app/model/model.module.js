@@ -17,7 +17,7 @@ var ModelModule = (function () {
     }
     ModelModule = __decorate([
         core_1.NgModule({
-            imports: [http_1.HttpModule],
+            imports: [http_1.HttpModule, http_1.JsonpModule],
             providers: [repository_model_1.Model, rest_datasource_1.RestDataSource,
                 { provide: rest_datasource_1.REST_URL, useValue: "http://" + location.hostname + ":3500/products" }
             ]
