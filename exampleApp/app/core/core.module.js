@@ -19,13 +19,13 @@ var Subject_1 = require("rxjs/Subject");
 var state_pipe_1 = require("./state.pipe");
 var repository_model_1 = require("../model/repository.model");
 var message_service_1 = require("../messages/message.service");
-var message_model_1 = require("../messages/message.model");
+var router_1 = require("@angular/router");
 var CoreModule = (function () {
     function CoreModule() {
     }
     CoreModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, model_module_1.ModelModule],
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, model_module_1.ModelModule, router_1.RouterModule],
             declarations: [table_component_1.TableComponent, form_component_1.FormComponent, state_pipe_1.StatePipe],
             exports: [table_component_1.TableComponent, form_component_1.FormComponent],
             providers: [{
@@ -33,10 +33,10 @@ var CoreModule = (function () {
                     deps: [message_service_1.MessageService, repository_model_1.Model],
                     useFactory: function (messageService, model) {
                         var subject = new Subject_1.Subject();
-                        subject.subscribe(function (state) {
-                            var text = sharedState_model_1.MODES[state.mode] + (state.id != undefined ? " " + model.getProduct(state.id).name : "");
-                            messageService.reportMessage(new message_model_1.Message(text));
-                        });
+                        // subject.subscribe(state => {
+                        //     let text = MODES[state.mode] + (state.id != undefined ? ` ${model.getProduct(state.id).name}` : "");
+                        //     messageService.reportMessage(new Message(text));
+                        // });
                         return subject;
                     }
                 }]

@@ -10,9 +10,10 @@ import { StatePipe } from "./state.pipe";
 import { Model } from "../model/repository.model";
 import { MessageService } from "../messages/message.service";
 import { Message } from "../messages/message.model";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ModelModule],
+    imports: [BrowserModule, FormsModule, ModelModule, RouterModule],
     declarations: [TableComponent, FormComponent, StatePipe],
     exports: [TableComponent, FormComponent],
     providers: [{
@@ -20,11 +21,11 @@ import { Message } from "../messages/message.model";
         deps: [MessageService, Model],
         useFactory: (messageService: MessageService, model: Model) => {
             let subject = new Subject<SharedState>();
-            
-            subject.subscribe(state => {
-                let text = MODES[state.mode] + (state.id != undefined ? ` ${model.getProduct(state.id).name}` : "");
-                messageService.reportMessage(new Message(text));
-            });
+
+            // subject.subscribe(state => {
+            //     let text = MODES[state.mode] + (state.id != undefined ? ` ${model.getProduct(state.id).name}` : "");
+            //     messageService.reportMessage(new Message(text));
+            // });
 
             return subject;
         }
