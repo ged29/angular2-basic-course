@@ -4,6 +4,7 @@ import { Product } from "./product.model";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
+import "rxjs/add/operator/map";
 
 export const REST_URL = new OpaqueToken("rest_url");
 

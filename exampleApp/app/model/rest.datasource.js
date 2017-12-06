@@ -16,6 +16,7 @@ var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/catch");
 require("rxjs/add/observable/throw");
+require("rxjs/add/operator/map");
 exports.REST_URL = new core_1.OpaqueToken("rest_url");
 var RestDataSource = (function () {
     function RestDataSource(http, jsonp, url) {

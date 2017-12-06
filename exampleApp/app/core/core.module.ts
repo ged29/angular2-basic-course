@@ -4,31 +4,20 @@ import { FormsModule } from "@angular/forms";
 import { ModelModule } from "../model/model.module";
 import { TableComponent } from "./table.component";
 import { FormComponent } from "./form.component";
-import { SHARED_STATE, SharedState, MODES } from "./sharedState.model";
 import { Subject } from "rxjs/Subject";
 import { StatePipe } from "./state.pipe";
 import { Model } from "../model/repository.model";
 import { MessageService } from "../messages/message.service";
 import { Message } from "../messages/message.model";
 import { RouterModule } from "@angular/router";
+import { NotFoundComponent } from "./notFound.component";
+import { CategoryCountComponent } from "./categoryCount.component";
+import { ProductCountComponent } from "./productCount.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ModelModule, RouterModule],
-    declarations: [TableComponent, FormComponent, StatePipe],
-    exports: [TableComponent, FormComponent],
-    providers: [{
-        provide: SHARED_STATE,
-        deps: [MessageService, Model],
-        useFactory: (messageService: MessageService, model: Model) => {
-            let subject = new Subject<SharedState>();
-
-            // subject.subscribe(state => {
-            //     let text = MODES[state.mode] + (state.id != undefined ? ` ${model.getProduct(state.id).name}` : "");
-            //     messageService.reportMessage(new Message(text));
-            // });
-
-            return subject;
-        }
-    }]
+    declarations: [TableComponent, FormComponent, StatePipe,
+        ProductCountComponent, CategoryCountComponent, NotFoundComponent],
+    exports: [TableComponent, FormComponent]
 })
 export class CoreModule { }

@@ -11,4 +11,4 @@ export class MessageErrorHandler implements ErrorHandler {
         let text = error instanceof Error ? error.message : error.toString();
         setTimeout(() => this.messageService.reportMessage(new Message(text, true)), 0);
     }
-} 
+}

@@ -14,7 +14,7 @@ var Model = (function () {
     function Model(dataSource) {
         var _this = this;
         this.dataSource = dataSource;
-        this.locator = function (p, id) { return p.id == id; };
+        this.locator = function (p, id) { return p.id === id; };
         this.products = new Array();
         this.dataSource.getProducts().subscribe(function (data) { return _this.products = data; });
     }
@@ -25,12 +25,30 @@ var Model = (function () {
         var _this = this;
         return this.products.find(function (p) { return _this.locator(p, id); });
     };
+    Model.prototype.getNextProductId = function (id) {
+        var _this = this;
+        var inx = this.products.findIndex(function (p) { return _this.locator(p, id); });
+        if (inx === -1) {
+            return 0;
+        }
+        inx = inx + 2 === this.products.length ? 0 : inx + 1;
+        return this.products[inx].id;
+    };
+    Model.prototype.getPreviousProductId = function (id) {
+        var _this = this;
+        var inx = this.products.findIndex(function (p) { return _this.locator(p, id); });
+        if (inx === -1) {
+            return 0;
+        }
+        inx = inx === 0 ? this.products.length - 1 : inx - 1;
+        return this.products[inx].id;
+    };
     Model.prototype.saveProduct = function (product) {
         var _this = this;
-        if (product.id == 0 || product.id == undefined) {
+        if (product.id === undefined) {
             this.dataSource
                 .saveProduct(product)
-                .subscribe(function (p) { return _this.products.push(product); });
+                .subscribe(function (p) { return _this.products.push(p); });
         }
         else {
             this.dataSource
@@ -43,8 +61,10 @@ var Model = (function () {
     };
     Model.prototype.deleteProduct = function (id) {
         var _this = this;
-        this.dataSource.deleteProduct(id).subscribe(function (deletedProduct) {
-            var findId = deletedProduct.id, index = _this.products.findIndex(function (p) { return _this.locator(p, findId); });
+        this.dataSource
+            .deleteProduct(id)
+            .subscribe(function (x) {
+            var index = _this.products.findIndex(function (p) { return _this.locator(p, id); });
             _this.products.splice(index, 1);
         });
     };

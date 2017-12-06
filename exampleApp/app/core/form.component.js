@@ -8,39 +8,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var product_model_1 = require("../model/product.model");
 var repository_model_1 = require("../model/repository.model");
-var sharedState_model_1 = require("./sharedState.model");
-var Observable_1 = require("rxjs/Observable");
-require("rxjs/add/operator/filter");
-require("rxjs/add/operator/map");
-require("rxjs/add/operator/distinctUntilChanged");
-require("rxjs/add/operator/skipWhile");
+// import { MODES, SHARED_STATE, SharedState } from "./sharedState.model";
+// import { Observable } from "rxjs/Observable";
+// import "rxjs/add/operator/filter";
+// import "rxjs/add/operator/map";
+// import "rxjs/add/operator/distinctUntilChanged";
+// import "rxjs/add/operator/skipWhile";
 var FormComponent = (function () {
-    function FormComponent(model, stateEvents) {
-        var _this = this;
+    function FormComponent(model, activatedRoute, router) {
         this.model = model;
-        this.stateEvents = stateEvents;
+        this.router = router;
         this.editing = false;
         this.product = new product_model_1.Product();
-        stateEvents
-            .subscribe(function (update) {
-            _this.product = new product_model_1.Product();
-            _this.editing = update.mode === sharedState_model_1.MODES.EDIT;
-            if (_this.editing) {
-                Object.assign(_this.product, _this.model.getProduct(update.id));
-            }
-        });
+        var id = activatedRoute.snapshot.params["id"];
+        if (id) {
+            Object.assign(this.product, model.getProduct(Number(id)) || new product_model_1.Product());
+        }
+        this.editing = activatedRoute.snapshot.params["mode"] === "edit";
     }
     FormComponent.prototype.submitForm = function (form) {
         if (form.valid) {
             this.model.saveProduct(this.product);
-            this.product = new product_model_1.Product();
-            form.reset();
+            this.router.navigateByUrl("/");
         }
     };
     FormComponent.prototype.resetForm = function () {
@@ -52,9 +45,8 @@ var FormComponent = (function () {
             templateUrl: "form.component.html",
             styleUrls: ["form.component.css"],
             moduleId: module.id
-        }),
-        __param(1, core_1.Inject(sharedState_model_1.SHARED_STATE)), 
-        __metadata('design:paramtypes', [repository_model_1.Model, Observable_1.Observable])
+        }), 
+        __metadata('design:paramtypes', [repository_model_1.Model, router_1.ActivatedRoute, router_1.Router])
     ], FormComponent);
     return FormComponent;
 }());
