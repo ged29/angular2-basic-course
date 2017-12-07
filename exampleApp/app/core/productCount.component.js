@@ -10,12 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var repository_model_1 = require("../model/repository.model");
+var router_1 = require("@angular/router");
 var ProductCountComponent = (function () {
-    function ProductCountComponent(model, keyValueDiffers, changeDetectorRef) {
+    function ProductCountComponent(model, keyValueDiffers, changeDetectorRef, activatedRoute) {
+        var _this = this;
         this.model = model;
         this.keyValueDiffers = keyValueDiffers;
         this.changeDetectorRef = changeDetectorRef;
         this.count = 0;
+        activatedRoute.pathFromRoot.forEach(function (route) {
+            return route.params.subscribe(function (params) {
+                if (params.hasOwnProperty("category")) {
+                    _this.category = params["category"];
+                }
+            });
+        });
     }
     ProductCountComponent.prototype.ngOnInit = function () {
         this.differ = this.keyValueDiffers.find(this.model.getProducts()).create(this.changeDetectorRef);
@@ -25,15 +34,18 @@ var ProductCountComponent = (function () {
             this.updateCount();
         }
     };
-    ProductCountComponent.prototype.updateCount = function () {
-        this.count = this.model.getProducts().length;
+    ProductCountComponent.prototype.updateCount = function (category) {
+        var _this = this;
+        this.count = this.model
+            .getProducts()
+            .filter(function (p) { return _this.category === undefined || p.category === _this.category; }).length;
     };
     ProductCountComponent = __decorate([
         core_1.Component({
             selector: "paProductCount",
             template: "<div class=\"bg-info p-a-1\">There are {{count}} products</div>"
         }), 
-        __metadata('design:paramtypes', [repository_model_1.Model, core_1.KeyValueDiffers, core_1.ChangeDetectorRef])
+        __metadata('design:paramtypes', [repository_model_1.Model, core_1.KeyValueDiffers, core_1.ChangeDetectorRef, router_1.ActivatedRoute])
     ], ProductCountComponent);
     return ProductCountComponent;
 }());

@@ -17,6 +17,7 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/catch");
 require("rxjs/add/observable/throw");
 require("rxjs/add/operator/map");
+require("rxjs/add/operator/delay");
 exports.REST_URL = new core_1.OpaqueToken("rest_url");
 var RestDataSource = (function () {
     function RestDataSource(http, jsonp, url) {
@@ -24,7 +25,7 @@ var RestDataSource = (function () {
         this.jsonp = jsonp;
         this.url = url;
     }
-    RestDataSource.prototype.getProducts = function () {
+    RestDataSource.prototype.getProducts = function (from) {
         //return this.jsonp.get(this.url + "?callback=JSONP_CALLBACK").map(response => response.json());
         return this.sendRequest(http_1.RequestMethod.Get, this.url);
     };
@@ -48,6 +49,7 @@ var RestDataSource = (function () {
             body: body,
             headers: headers
         }))
+            .delay(5000)
             .map(function (response) { return response.json(); })
             .catch(function (error) { return Observable_1.Observable.throw("Network Error: " + error.statusText + " (" + error.status + ")"); });
     };

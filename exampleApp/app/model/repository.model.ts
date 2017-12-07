@@ -9,7 +9,9 @@ export class Model {
 
     constructor(private dataSource: RestDataSource) {
         this.products = new Array<Product>();
-        this.dataSource.getProducts().subscribe(data => this.products = data);
+        this.dataSource.getProducts().subscribe(data => {
+            this.products = data;
+        });
     }
 
     getProducts(): Product[] {
@@ -26,7 +28,7 @@ export class Model {
             return 0;
         }
 
-        inx = inx + 2 === this.products.length ? 0 : inx + 1;
+        inx = inx + 2 > this.products.length ? 0 : inx + 1;
         return this.products[inx].id;
     }
 
@@ -36,7 +38,7 @@ export class Model {
             return 0;
         }
 
-        inx = inx === 0 ? this.products.length - 1 : inx - 1;
+        inx = inx - 1 < 0 ? this.products.length - 1 : inx - 1;
         return this.products[inx].id;
     }
 

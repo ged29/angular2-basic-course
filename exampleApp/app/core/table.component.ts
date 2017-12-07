@@ -1,4 +1,5 @@
 ﻿import { Component, Inject } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model";
 //import { MODES, SHARED_STATE, SharedState } from "./sharedState.model";
@@ -10,8 +11,14 @@ import { Model } from "../model/repository.model";
     moduleId: module.id
 })
 export class TableComponent {
+    category: string;
 
-    constructor(private model: Model) {
+    constructor(
+        private model: Model,
+        private activatedRoute: ActivatedRoute) {
+        activatedRoute.params.subscribe(params => {
+            this.category = params["category"] || null;
+        });
     }
 
     getProduct(key: number): Product {
@@ -19,7 +26,15 @@ export class TableComponent {
     }
 
     getProducts(): Product[] {
-        return this.model.getProducts();
+        return this.model
+            .getProducts()
+            .filter(p => this.category === null || p.category === this.category);
+    }
+
+    getCategories(): string[] {
+        return this.getProducts()
+            .map(p => p.category)
+            .filter((cat: string, index: number, arr: string[]) => arr.indexOf(cat) === index);
     }
 
     deleteProduct(key: number) {

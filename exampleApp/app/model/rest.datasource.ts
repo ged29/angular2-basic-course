@@ -5,6 +5,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/delay";
 
 export const REST_URL = new OpaqueToken("rest_url");
 
@@ -16,7 +17,7 @@ export class RestDataSource {
         @Inject(REST_URL) private url: string) {
     }
 
-    getProducts(): Observable<Product[]> {
+    getProducts(from?: string): Observable<Product[]> {    
         //return this.jsonp.get(this.url + "?callback=JSONP_CALLBACK").map(response => response.json());
         return this.sendRequest<Product[]>(RequestMethod.Get, this.url);
     }
@@ -45,6 +46,7 @@ export class RestDataSource {
                 body,
                 headers
             }))
+            .delay(5000)
             .map(response => response.json() as T)
             .catch((error: Response) => Observable.throw(`Network Error: ${error.statusText} (${error.status})`));
     }

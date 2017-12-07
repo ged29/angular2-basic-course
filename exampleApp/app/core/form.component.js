@@ -19,16 +19,19 @@ var repository_model_1 = require("../model/repository.model");
 // import "rxjs/add/operator/distinctUntilChanged";
 // import "rxjs/add/operator/skipWhile";
 var FormComponent = (function () {
-    function FormComponent(model, activatedRoute, router) {
+    function FormComponent(model, router, activatedRoute) {
+        var _this = this;
         this.model = model;
         this.router = router;
         this.editing = false;
         this.product = new product_model_1.Product();
-        var id = activatedRoute.snapshot.params["id"];
-        if (id) {
-            Object.assign(this.product, model.getProduct(Number(id)) || new product_model_1.Product());
-        }
-        this.editing = activatedRoute.snapshot.params["mode"] === "edit";
+        activatedRoute.params.subscribe(function (params) {
+            var id = params["id"];
+            if (id) {
+                Object.assign(_this.product, model.getProduct(Number(id)) || new product_model_1.Product());
+            }
+            _this.editing = params["mode"] === "edit";
+        });
     }
     FormComponent.prototype.submitForm = function (form) {
         if (form.valid) {
@@ -46,7 +49,7 @@ var FormComponent = (function () {
             styleUrls: ["form.component.css"],
             moduleId: module.id
         }), 
-        __metadata('design:paramtypes', [repository_model_1.Model, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [repository_model_1.Model, router_1.Router, router_1.ActivatedRoute])
     ], FormComponent);
     return FormComponent;
 }());

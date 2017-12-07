@@ -16,7 +16,9 @@ var Model = (function () {
         this.dataSource = dataSource;
         this.locator = function (p, id) { return p.id === id; };
         this.products = new Array();
-        this.dataSource.getProducts().subscribe(function (data) { return _this.products = data; });
+        this.dataSource.getProducts().subscribe(function (data) {
+            _this.products = data;
+        });
     }
     Model.prototype.getProducts = function () {
         return this.products;
@@ -31,7 +33,7 @@ var Model = (function () {
         if (inx === -1) {
             return 0;
         }
-        inx = inx + 2 === this.products.length ? 0 : inx + 1;
+        inx = inx + 2 > this.products.length ? 0 : inx + 1;
         return this.products[inx].id;
     };
     Model.prototype.getPreviousProductId = function (id) {
@@ -40,7 +42,7 @@ var Model = (function () {
         if (inx === -1) {
             return 0;
         }
-        inx = inx === 0 ? this.products.length - 1 : inx - 1;
+        inx = inx - 1 < 0 ? this.products.length - 1 : inx - 1;
         return this.products[inx].id;
     };
     Model.prototype.saveProduct = function (product) {

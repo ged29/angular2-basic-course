@@ -22,13 +22,15 @@ export class FormComponent {
 
     constructor(
         private model: Model,
-        activatedRoute: ActivatedRoute,
-        private router: Router) {
-        let id = activatedRoute.snapshot.params["id"];
-        if (id) {
-            Object.assign(this.product, model.getProduct(Number(id)) || new Product());
-        }
-        this.editing = activatedRoute.snapshot.params["mode"] === "edit";
+        private router: Router,
+        activatedRoute: ActivatedRoute) {
+        activatedRoute.params.subscribe(params => {
+            let id = params["id"];
+            if (id) {
+                Object.assign(this.product, model.getProduct(Number(id)) || new Product());
+            }
+            this.editing = params["mode"] === "edit";
+        });
     }
 
     submitForm(form: NgForm) {
