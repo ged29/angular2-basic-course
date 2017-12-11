@@ -19,6 +19,7 @@ import { Model } from "../model/repository.model";
 export class FormComponent {
     editing: boolean = false;
     product: Product = new Product();
+    originalProduct: Product = new Product();
 
     constructor(
         private model: Model,
@@ -28,6 +29,7 @@ export class FormComponent {
             let id = params["id"];
             if (id) {
                 Object.assign(this.product, model.getProduct(Number(id)) || new Product());
+                Object.assign(this.originalProduct, this.product);
             }
             this.editing = params["mode"] === "edit";
         });
@@ -36,11 +38,8 @@ export class FormComponent {
     submitForm(form: NgForm) {
         if (form.valid) {
             this.model.saveProduct(this.product);
+            this.originalProduct = this.product;
             this.router.navigateByUrl("/");
         }
-    }
-
-    resetForm() {
-        this.product = new Product();
     }
 }

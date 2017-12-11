@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var repository_model_1 = require("../model/repository.model");
+var table_animations_1 = require("./table.animations");
 //import { MODES, SHARED_STATE, SharedState } from "./sharedState.model";
 //import { Observer } from "rxjs/Observer";
 var TableComponent = (function () {
@@ -18,6 +19,7 @@ var TableComponent = (function () {
         var _this = this;
         this.model = model;
         this.activatedRoute = activatedRoute;
+        this.highlightCategory = "";
         activatedRoute.params.subscribe(function (params) {
             _this.category = params["category"] || null;
         });
@@ -39,11 +41,17 @@ var TableComponent = (function () {
     TableComponent.prototype.deleteProduct = function (key) {
         this.model.deleteProduct(key);
     };
+    TableComponent.prototype.getRowState = function (category) {
+        return this.highlightCategory === ""
+            ? ""
+            : this.highlightCategory === category ? "selected" : "notselected";
+    };
     TableComponent = __decorate([
         core_1.Component({
             selector: "paTable",
             templateUrl: "table.component.html",
-            moduleId: module.id
+            moduleId: module.id,
+            animations: [table_animations_1.HighlightTrigger]
         }), 
         __metadata('design:paramtypes', [repository_model_1.Model, router_1.ActivatedRoute])
     ], TableComponent);

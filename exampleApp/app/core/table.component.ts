@@ -2,13 +2,15 @@
 import { ActivatedRoute } from "@angular/router";
 import { Product } from "../model/product.model";
 import { Model } from "../model/repository.model";
+import { HighlightTrigger } from "./table.animations";
 //import { MODES, SHARED_STATE, SharedState } from "./sharedState.model";
 //import { Observer } from "rxjs/Observer";
 
 @Component({
     selector: "paTable",
     templateUrl: "table.component.html",
-    moduleId: module.id
+    moduleId: module.id,
+    animations: [HighlightTrigger]
 })
 export class TableComponent {
     category: string;
@@ -39,5 +41,13 @@ export class TableComponent {
 
     deleteProduct(key: number) {
         this.model.deleteProduct(key);
+    }
+
+    highlightCategory: string = "";
+
+    getRowState(category: string): string {
+        return this.highlightCategory === ""
+            ? ""
+            : this.highlightCategory === category ? "selected" : "notselected";
     }
 }

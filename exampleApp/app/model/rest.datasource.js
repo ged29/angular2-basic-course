@@ -49,7 +49,6 @@ var RestDataSource = (function () {
             body: body,
             headers: headers
         }))
-            .delay(5000)
             .map(function (response) { return response.json(); })
             .catch(function (error) { return Observable_1.Observable.throw("Network Error: " + error.statusText + " (" + error.status + ")"); });
     };

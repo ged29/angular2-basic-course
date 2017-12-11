@@ -25,10 +25,12 @@ var FormComponent = (function () {
         this.router = router;
         this.editing = false;
         this.product = new product_model_1.Product();
+        this.originalProduct = new product_model_1.Product();
         activatedRoute.params.subscribe(function (params) {
             var id = params["id"];
             if (id) {
                 Object.assign(_this.product, model.getProduct(Number(id)) || new product_model_1.Product());
+                Object.assign(_this.originalProduct, _this.product);
             }
             _this.editing = params["mode"] === "edit";
         });
@@ -36,11 +38,9 @@ var FormComponent = (function () {
     FormComponent.prototype.submitForm = function (form) {
         if (form.valid) {
             this.model.saveProduct(this.product);
+            this.originalProduct = this.product;
             this.router.navigateByUrl("/");
         }
-    };
-    FormComponent.prototype.resetForm = function () {
-        this.product = new product_model_1.Product();
     };
     FormComponent = __decorate([
         core_1.Component({

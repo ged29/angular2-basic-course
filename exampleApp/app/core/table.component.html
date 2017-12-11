@@ -15,6 +15,15 @@
             <router-outlet></router-outlet>
         </div>
     </div>
+    <div class="form-group bg-info p-a-1">
+        <label>Category</label>
+        <select [(ngModel)]="highlightCategory" class="form-control">
+            <option value="">None</option>
+            <option *ngFor="let category of getCategories()">
+                {{category}}
+            </option>
+        </select>
+    </div>
     <table class="table table-sm table-bordered table-striped">
         <tr>
             <th>ID</th>
@@ -23,12 +32,12 @@
             <th>Price</th>
             <th></th>
         </tr>
-        <tr *ngFor="let item of getProducts()">
+        <tr *ngFor="let item of getProducts()" [@rowHighlight]="getRowState(item.category)">
             <td style="vertical-align:middle">{{item.id}}</td>
             <td style="vertical-align:middle">{{item.name}}</td>
             <td style="vertical-align:middle">{{item.category}}</td>
             <td style="vertical-align:middle">{{item.price | currency:"USD":true }}</td>
-            <td class="text-xs-center">
+            <td class="vertical-align:middle text-xs-center">
                 <button class="btn btn-danger btn-sm" (click)="deleteProduct(item.id)">
                     Delete
                 </button>
@@ -43,4 +52,6 @@
     <button class="btn btn-primary" routerLink="/form/create">Create New Product</button>
     <button class="btn btn-danger" (click)="deleteProduct(-1)">Generate HTTP Error</button>
     <button class="btn btn-danger" routerLink="/does/not/exist">Generate Routing Error</button>
+    <button class="btn btn-info" routerLink="/ondemand">Load Normal Module</button>
+    <button class="btn btn-info" routerLink="/ondemand/swap">Load Swap Module</button>
 </div>

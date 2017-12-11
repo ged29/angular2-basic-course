@@ -6,9 +6,16 @@
     "configurations": [
         {
             "type": "node",
+            "request": "attach",
+            "name": "Attach",            
+            "protocol": "legacy",
+            "processId": "${command:PickProcess}"
+        },
+        {
+            "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${file}"            
+            "program": "${file}"
         }
     ]
 }

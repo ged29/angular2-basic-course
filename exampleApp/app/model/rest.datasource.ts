@@ -17,7 +17,7 @@ export class RestDataSource {
         @Inject(REST_URL) private url: string) {
     }
 
-    getProducts(from?: string): Observable<Product[]> {    
+    getProducts(from?: string): Observable<Product[]> {
         //return this.jsonp.get(this.url + "?callback=JSONP_CALLBACK").map(response => response.json());
         return this.sendRequest<Product[]>(RequestMethod.Get, this.url);
     }
@@ -46,7 +46,7 @@ export class RestDataSource {
                 body,
                 headers
             }))
-            .delay(5000)
+            //.delay(5000)
             .map(response => response.json() as T)
             .catch((error: Response) => Observable.throw(`Network Error: ${error.statusText} (${error.status})`));
     }

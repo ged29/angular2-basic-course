@@ -14,6 +14,9 @@ var core_module_1 = require("./core/core.module");
 var message_module_1 = require("./messages/message.module");
 var app_routing_1 = require("./app.routing");
 var app_component_1 = require("./app.component");
+var terms_guard_1 = require("./terms.guard");
+var unsaved_guard_1 = require("./unsaved.guard");
+var load_guard_1 = require("./load.guard");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -21,6 +24,7 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, core_module_1.CoreModule, message_module_1.MessageModule, app_routing_1.routing],
             declarations: [app_component_1.AppComponent],
+            providers: [terms_guard_1.TermsGuard, unsaved_guard_1.UnsavedGuard, load_guard_1.LoadGuard],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
