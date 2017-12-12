@@ -14,15 +14,33 @@ var FirstComponent = (function () {
     function FirstComponent(model) {
         this.model = model;
         this.category = "Soccer";
+        this.highlighted = false;
+        this.change = new core_1.EventEmitter();
     }
     FirstComponent.prototype.getProducts = function () {
         var _this = this;
         return this.model.getProducts().filter(function (p) { return p.category === _this.category; });
     };
+    FirstComponent.prototype.setHighlight = function (type) {
+        this.highlighted = type == "mouseenter";
+        this.change.emit(this.highlighted);
+    };
+    __decorate([
+        core_1.Output("pa-highlight"), 
+        __metadata('design:type', Object)
+    ], FirstComponent.prototype, "change", void 0);
+    __decorate([
+        core_1.HostListener("mouseenter", ["$event.type"]),
+        core_1.HostListener("mouseleave", ["$event.type"]), 
+        __metadata('design:type', Function), 
+        __metadata('design:paramtypes', [String]), 
+        __metadata('design:returntype', void 0)
+    ], FirstComponent.prototype, "setHighlight", null);
     FirstComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: "first",
-            template: "<div class=\"bg-primary p-a-1\">\n                    There are<span class=\"strong\"> {{getProducts().length}} </span>products\n               </div>"
+            templateUrl: "first.component.html"
         }), 
         __metadata('design:paramtypes', [repository_model_1.Model])
     ], FirstComponent);

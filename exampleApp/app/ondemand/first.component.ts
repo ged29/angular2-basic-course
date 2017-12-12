@@ -1,12 +1,11 @@
-import { Component } from "@angular/core";
+import { Component, HostListener, EventEmitter, Output } from "@angular/core";
 import { Model } from "../model/repository.model";
 import { Product } from "../model/product.model";
 
 @Component({
+    moduleId: module.id,
     selector: "first",
-    template: `<div class="bg-primary p-a-1">
-                    There are<span class="strong"> {{getProducts().length}} </span>products
-               </div>`
+    templateUrl: "first.component.html"
 })
 export class FirstComponent {
 
@@ -14,8 +13,19 @@ export class FirstComponent {
     }
 
     category: string = "Soccer";
+    highlighted: boolean = false;
+
+    @Output("pa-highlight")
+    change = new EventEmitter<boolean>();
 
     getProducts(): Product[] {
         return this.model.getProducts().filter(p => p.category === this.category);
+    }
+
+    @HostListener("mouseenter", ["$event.type"])
+    @HostListener("mouseleave", ["$event.type"])
+    setHighlight(type: string) {
+        this.highlighted = type == "mouseenter";
+        this.change.emit(this.highlighted);
     }
 }
